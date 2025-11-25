@@ -1,5 +1,7 @@
-# app.py
-import os, time, urllib.parse
+# app.py (fixed)
+import os
+import time
+import urllib.parse
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Response
 import mysql.connector
@@ -9,12 +11,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = os.environ.get("FLASK_SECRET", "please_change_this_secret")
 
-# DB config
-DB_HOST = os.environ.get("DB_HOST", "db")
-DB_PORT = int(os.environ.get("DB_PORT", 3306))
-DB_USER = os.environ.get("DB_USER", "cs_user")
-DB_PASS = os.environ.get("DB_PASS", "cs_pass")
-DB_NAME = os.environ.get("DB_NAME", "couriersathi")
+# DB config (Railway provides MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE)
+DB_HOST = os.environ.get("MYSQLHOST")
+DB_PORT = os.environ.get("MYSQLPORT")
+try:
+    DB_PORT = int(DB_PORT) if DB_PORT is not None else None
+except ValueError:
+    DB_PORT = None
+DB_USER = os.environ.get("MYSQLUSER")
+DB_PASS = os.environ.get("MYSQLPASSWORD")
+DB_NAME = os.environ.get("MYSQLDATABASE")
 
 OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918290105891")  # no plus
 
@@ -23,7 +29,8 @@ ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
 ADMIN_PASS = os.environ.get("ADMIN_PASS", "adminpass")
 
 auth = HTTPBasicAuth()
-users = { ADMIN_USER: generate_password_hash(ADMIN_PASS) }
+users = {ADMIN_USER: generate_password_hash(ADMIN_PASS)}
+
 @auth.verify_password
 def verify(username, password):
     if username in users and check_password_hash(users.get(username), password):
@@ -32,17 +39,34 @@ def verify(username, password):
 # expose datetime to templates (use {{ datetime.utcnow().year }})
 app.jinja_env.globals['datetime'] = datetime
 
-def get_db_conn(retry=True, retries=10, delay=2):
-    for _ in range(retries if retry else 1):
+def get_db_conn(retry=True, retries=8, delay=2):
+    """
+    Returns a mysql.connector connection. Retries a few times to handle
+    managed DB cold-start or network hiccups (helpful on deploy).
+    """
+    last_exc = None
+    for i in range(retries if retry else 1):
         try:
-            conn = mysql.connector.connect(
-                host=DB_HOST, port=DB_PORT, user=DB_USER, password=DB_PASS, database=DB_NAME, autocommit=True
-            )
+            conn_kwargs = {
+                "host": DB_HOST,
+                "user": DB_USER,
+                "password": DB_PASS,
+                "database": DB_NAME,
+            }
+            if DB_PORT:
+                conn_kwargs["port"] = DB_PORT
+            # autocommit True is convenient for simple inserts
+            conn = mysql.connector.connect(**conn_kwargs, autocommit=True)
             return conn
-        except Exception:
+        except Exception as e:
+            last_exc = e
             if retry:
                 time.sleep(delay)
-    raise Exception("Could not connect to DB")
+    raise Exception(f"Could not connect to DB: {last_exc}")
+
+# Backwards-compatible alias used earlier
+def get_db():
+    return get_db_conn()
 
 @app.route("/")
 def index():
@@ -76,10 +100,13 @@ def submit():
     try:
         conn = get_db_conn()
         cur = conn.cursor()
-        cur.execute("""
+        cur.execute(
+           """
            INSERT INTO bookings (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, created_at)
            VALUES (%s,%s,%s,%s,%s,%s)
-        """, (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, datetime.utcnow()))
+           """,
+           (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, datetime.utcnow())
+        )
         cur.close()
         conn.close()
     except Exception as e:
@@ -98,7 +125,6 @@ def submit():
     flash("Booking saved. Click WhatsApp link to notify manually.", "info")
     return render_template("success.html", message_text=msg_plain, wa_url=wa_url, provider_sent=False)
 
-# JSON API endpoint used by JS "Send via WhatsApp" button
 @app.route("/api/submit-json", methods=["POST"])
 def submit_json():
     data = request.get_json(silent=True) or {}
@@ -125,10 +151,13 @@ def submit_json():
     try:
         conn = get_db_conn()
         cur = conn.cursor()
-        cur.execute("""
+        cur.execute(
+           """
            INSERT INTO bookings (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, created_at)
            VALUES (%s,%s,%s,%s,%s,%s)
-        """, (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, datetime.utcnow()))
+           """,
+           (item_description, sender_name, sender_phone, sender_pincode, receiver_pincode, datetime.utcnow())
+        )
         cur.close()
         conn.close()
     except Exception as e:
