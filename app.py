@@ -1,8 +1,9 @@
-# app.py (fixed)
+# app.py (Railway-ready with MYSQL_URL parsing + debug endpoints)
 import os
 import time
 import urllib.parse
 from datetime import datetime
+from urllib.parse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Response
 import mysql.connector
 from flask_httpauth import HTTPBasicAuth
@@ -11,20 +12,52 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = os.environ.get("FLASK_SECRET", "please_change_this_secret")
 
-# DB config (Railway provides MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE)
-DB_HOST = os.environ.get("MYSQLHOST")
-DB_PORT = os.environ.get("MYSQLPORT")
+# -------------------------
+# DB config: support MYSQL_URL or individual vars
+# -------------------------
+DB_HOST = None
+DB_PORT = None
+DB_USER = None
+DB_PASS = None
+DB_NAME = None
+
+# Railway recommended single URL (plugin provides this if you map it)
+DB_URL = os.environ.get("MYSQL_URL") or os.environ.get("MYSQL_PUBLIC_URL") or os.environ.get("MYSQLDATABASE_URL")
+
+if DB_URL:
+    # parse mysql://user:pass@host:port/db
+    try:
+        p = urlparse(DB_URL)
+        DB_HOST = p.hostname
+        DB_PORT = p.port
+        DB_USER = p.username
+        DB_PASS = p.password
+        DB_NAME = p.path.lstrip("/") if p.path else None
+    except Exception:
+        # fallback to env vars if parsing fails
+        DB_HOST = os.environ.get("MYSQLHOST")
+        DB_PORT = os.environ.get("MYSQLPORT")
+        DB_USER = os.environ.get("MYSQLUSER")
+        DB_PASS = os.environ.get("MYSQLPASSWORD")
+        DB_NAME = os.environ.get("MYSQLDATABASE")
+else:
+    # fallback for local testing or explicit envs
+    DB_HOST = os.environ.get("MYSQLHOST")
+    DB_PORT = os.environ.get("MYSQLPORT")
+    DB_USER = os.environ.get("MYSQLUSER")
+    DB_PASS = os.environ.get("MYSQLPASSWORD")
+    DB_NAME = os.environ.get("MYSQLDATABASE")
+
+# ensure port is int when available
 try:
     DB_PORT = int(DB_PORT) if DB_PORT is not None else None
-except ValueError:
+except (ValueError, TypeError):
     DB_PORT = None
-DB_USER = os.environ.get("MYSQLUSER")
-DB_PASS = os.environ.get("MYSQLPASSWORD")
-DB_NAME = os.environ.get("MYSQLDATABASE")
 
-OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918290105891")  # no plus
+# Owner whatsapp number (no plus)
+OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918290105891")
 
-# Admin
+# Admin credentials (basic auth)
 ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
 ADMIN_PASS = os.environ.get("ADMIN_PASS", "adminpass")
 
@@ -36,14 +69,11 @@ def verify(username, password):
     if username in users and check_password_hash(users.get(username), password):
         return username
 
-# expose datetime to templates (use {{ datetime.utcnow().year }})
+# expose datetime to templates
 app.jinja_env.globals['datetime'] = datetime
 
+# DB connection helper with retries
 def get_db_conn(retry=True, retries=8, delay=2):
-    """
-    Returns a mysql.connector connection. Retries a few times to handle
-    managed DB cold-start or network hiccups (helpful on deploy).
-    """
     last_exc = None
     for i in range(retries if retry else 1):
         try:
@@ -55,19 +85,22 @@ def get_db_conn(retry=True, retries=8, delay=2):
             }
             if DB_PORT:
                 conn_kwargs["port"] = DB_PORT
-            # autocommit True is convenient for simple inserts
             conn = mysql.connector.connect(**conn_kwargs, autocommit=True)
             return conn
         except Exception as e:
             last_exc = e
+            app.logger.debug("DB connect attempt %s failed: %s", i+1, e)
             if retry:
                 time.sleep(delay)
     raise Exception(f"Could not connect to DB: {last_exc}")
 
-# Backwards-compatible alias used earlier
+# Backwards-compatible alias
 def get_db():
     return get_db_conn()
 
+# -------------------------
+# Routes
+# -------------------------
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -204,8 +237,37 @@ def sitemap():
 def robots():
     return Response("User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {}/sitemap.xml".format(request.url_root.strip('/')), mimetype="text/plain")
 
+# -------------------------
+# Debug endpoints (temporary)
+# -------------------------
+@app.route("/debug-env")
+def debug_env():
+    # WARNING: remove this route after verification in production (it reveals env info)
+    return {
+        "DB_HOST": DB_HOST,
+        "DB_PORT": DB_PORT,
+        "DB_USER": DB_USER,
+        "DB_NAME": DB_NAME,
+        "RAW_MYSQL_URL": os.environ.get("MYSQL_URL") or os.environ.get("MYSQL_PUBLIC_URL") or os.environ.get("MYSQLDATABASE_URL")
+    }
+
+@app.route("/health")
+def health():
+    try:
+        conn = get_db_conn(retry=False)
+        conn.close()
+        return jsonify({"ok": True, "db": "connected"})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 500
+
+# -------------------------
+# Run
+# -------------------------
 if __name__ == "__main__":
-    # simple wait for DB
+    # optional debug log at startup (remove or lower level in production)
+    app.logger.info("Starting app with DB_HOST=%s DB_PORT=%s DB_USER=%s DB_NAME=%s", DB_HOST, DB_PORT, DB_USER, DB_NAME)
+
+    # wait-for-db attempts (helps on first deploy)
     for i in range(12):
         try:
             c = get_db_conn(retry=False)
