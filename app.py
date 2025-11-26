@@ -237,42 +237,9 @@ def sitemap():
 def robots():
     return Response("User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {}/sitemap.xml".format(request.url_root.strip('/')), mimetype="text/plain")
 
-# -------------------------
-# Debug endpoints (temporary)
-# -------------------------
-@app.route("/debug-env")
-def debug_env():
-    # WARNING: remove this route after verification in production (it reveals env info)
-    return {
-        "DB_HOST": DB_HOST,
-        "DB_PORT": DB_PORT,
-        "DB_USER": DB_USER,
-        "DB_NAME": DB_NAME,
-        "RAW_MYSQL_URL": os.environ.get("MYSQL_URL") or os.environ.get("MYSQL_PUBLIC_URL") or os.environ.get("MYSQLDATABASE_URL")
-    }
 
-@app.route("/health")
-def health():
-    try:
-        conn = get_db_conn(retry=False)
-        conn.close()
-        return jsonify({"ok": True, "db": "connected"})
-    except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-# -------------------------
-# Run
-# -------------------------
 if __name__ == "__main__":
     # optional debug log at startup (remove or lower level in production)
-    app.logger.info("Starting app with DB_HOST=%s DB_PORT=%s DB_USER=%s DB_NAME=%s", DB_HOST, DB_PORT, DB_USER, DB_NAME)
 
     # wait-for-db attempts (helps on first deploy)
-    for i in range(12):
-        try:
-            c = get_db_conn(retry=False)
-            c.close()
-            break
-        except Exception:
-            time.sleep(2)
     app.run(host="0.0.0.0", port=5000)
