@@ -4,7 +4,9 @@
 body {
   background-color: #f8f9fa;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
-  color: #111827; /* dark readable text */
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .required:after {
@@ -13,9 +15,8 @@ body {
   font-weight: bold;
 }
 
-.muted, .text-muted, small, .small {
-  color: #6b7280 !important; /* readable grey */
-  opacity: 1 !important;
+.muted {
+  color: #6c757d !important;
 }
 
 /* ----------------------------------------------------
@@ -47,16 +48,19 @@ body {
 .hero-logo {
   height: 120px;
   width: auto;
+  object-fit: contain;
 }
 
 .hero-title {
   font-size: 1.8rem;
   font-weight: 700;
+  margin: 0;
 }
 
 .hero-subtitle {
-  color: #374151;
+  color: #555;
   font-size: 1rem;
+  margin: 0;
 }
 
 /* trust badges */
@@ -75,24 +79,23 @@ body {
 ---------------------------------------------------- */
 .card {
   border-radius: 12px;
-  background: #fff;
 }
 
 .card-body {
-  padding: 20px 26px;
+  padding: 20px 24px;
 }
 
 .form-control {
   border-radius: 8px;
 }
 
-/* Make card titles normal (not bold heavy) */
-.card h4, .card h3, .card h6 {
-  font-weight: 600;
+/* subtle consistent small text color */
+small, .small {
+  color: #6b7280;
 }
 
 /* ----------------------------------------------------
-   PACKAGING VIDEO SECTION — FIXED (BIG + RESPONSIVE)
+   PACKAGING VIDEO SECTION
 ---------------------------------------------------- */
 .packaging-video {
   width: 100%;
@@ -111,43 +114,74 @@ body {
     max-height: 320px;     /* bigger on mobile too */
   }
 }
-
 /* ----------------------------------------------------
-   COURIER PARTNERS LOGOS — EQUAL SIZE CLEAN LOOK
+   COURIER PARTNERS LOGOS — NATURAL SIZE (FINAL)
 ---------------------------------------------------- */
+/* Container */
 .partners-section {
-  margin-top: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
+/* partner item wrapper */
 .partner-item {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
 }
 
+/* remove any card background if present */
 .partner-card {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
+  padding: 0 !important;
 }
 
-/* Balanced size for all logos */
+/* natural logo sizing — balanced and responsive */
 .partner-logo {
-  max-width: 150px;
-  height: auto;
   display: block;
-  margin: 0 auto 10px;
+  width: auto;
+  height: 72px;        /* main height for logos */
+  max-width: 180px;    /* prevents extremely wide images */
   object-fit: contain;
+  margin: 0 auto;
 }
 
-/* DTDC (larger file → reduce slightly) */
+/* Slightly enlarge DTDC to balance visual weight */
 .partner-logo.dtdc {
-  max-width: 130px;
+  height: 84px;
+  max-width: 220px;
 }
 
+/* Partner name text */
 .partner-name {
-  font-size: 1rem;
   font-weight: 600;
+  font-size: 1rem;
   margin-top: 4px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+/* Grid responsiveness helpers */
+.partners-row { gap: 1rem; }
+.partners-row .col-6,
+.partners-row .col-sm-4,
+.partners-row .col-md-3 {
+  display: flex;
+  align-items: stretch;
+}
+
+/* small devices */
+@media (max-width: 576px) {
+  .partner-logo { height: 56px; max-width: 140px; }
+  .partner-logo.dtdc { height: 66px; max-width: 160px; }
+  .partner-name { font-size: 0.95rem; }
 }
 
 /* ----------------------------------------------------
@@ -160,12 +194,16 @@ body {
   background: #25D366;
   padding: 12px;
   border-radius: 50%;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.18);
   z-index: 1000;
 }
 
 .floating-wa img {
-  width: 40px;
+  width: 38px;
+  height: auto;
 }
 
 /* ----------------------------------------------------
@@ -196,3 +234,7 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* Misc small helpers */
+.text-muted { color: #6b7280 !important; }
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
