@@ -55,7 +55,7 @@ except (ValueError, TypeError):
     DB_PORT = None
 
 # Owner whatsapp number (no plus)
-OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918290105891")
+OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918005790802")
 
 # Admin credentials (basic auth)
 ADMIN_USER = os.environ.get("ADMIN_USER")
