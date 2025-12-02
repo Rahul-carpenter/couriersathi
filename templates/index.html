@@ -17,6 +17,9 @@
   <meta property="og:image" content="{{ url_for('static', filename='logo.png') }}" />
   <meta property="og:url" content="{{ request.url_root }}" />
 
+  <!-- preload logo for LCP -->
+  <link rel="preload" as="image" href="{{ url_for('static', filename='logo.png') }}">
+
   <!-- Schema -->
   <script type="application/ld+json">
   {
@@ -35,7 +38,7 @@
 </head>
 <body class="bg-light">
 
-<!-- HEADER -->
+<!-- Header -->
 <header class="site-header shadow-sm bg-white">
   <div class="container py-3 d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-3">
@@ -53,12 +56,15 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- Hidden SEO H1 -->
+<h1 class="visually-hidden">Ved Logistics – Book Courier & Parcel Pickup Service Across India</h1>
+
+<!-- Hero -->
 <section class="hero-banner text-center py-5 container">
   <div class="d-flex flex-column flex-md-row align-items-center gap-4">
     <img src="{{ url_for('static', filename='logo.png') }}" class="hero-logo" alt="Ved Logistics Large Logo">
     <div class="text-start">
-      <h2 class="hero-title">("Student Express") Book Your Parcel Pickup in 60 Seconds</h2>
+      <h2 class="hero-title">Student Express — Book Your Parcel Pickup in 60 Seconds</h2>
       <p class="hero-subtitle">Fast • Reliable • ₹50 per kg • Doorstep Pickup Across India</p>
       <div class="mt-3 d-flex gap-2 flex-wrap">
         <a href="#booking" class="btn btn-primary btn-lg">Book a Pickup</a>
@@ -74,12 +80,11 @@
   </div>
 </section>
 
-<!-- MAIN GRID -->
+<!-- Main -->
 <main class="container my-4">
-
   <div class="row gx-4 gy-4">
 
-    <!-- BOOKING FORM -->
+    <!-- Booking form -->
     <section id="booking" class="col-12 col-lg-6">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -128,17 +133,16 @@
       </div>
     </section>
 
-    <!-- TESTIMONIALS + HOW IT WORKS -->
+    <!-- Testimonials & How it works -->
     <aside class="col-12 col-lg-6">
-
       <div class="card shadow-sm mb-3">
         <div class="card-body">
           <h4 class="h6">What customers say</h4>
           <p class="small mt-2 mb-1">"Fast pickup and great service — they called immediately."</p>
-          <div class="muted small">— Devendra Yadav, Saharsa </div>
+          <div class="muted small">— Devendra Yadav, Saharsa</div>
 
           <p class="small mt-3 mb-1">"Very professional and reliable."</p>
-          <div class="muted small">— Rishita Suthar, Hisar </div>
+          <div class="muted small">— Rishita Suthar, Hisar</div>
         </div>
       </div>
 
@@ -152,13 +156,11 @@
           </ol>
         </div>
       </div>
-
     </aside>
   </div>
 
-  <!-- NEW SECTION: PACKAGING + COURIER PARTNERS -->
+  <!-- Packaging + Partners -->
   <div class="row mt-4 align-items-start">
-
     <!-- Packaging video -->
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm mb-3">
@@ -169,50 +171,58 @@
           <video class="packaging-video" controls playsinline preload="metadata"
                  poster="{{ url_for('static', filename='packaging-poster.jpg') }}">
             <source src="{{ url_for('static', filename='packaging.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
           </video>
 
         </div>
       </div>
     </div>
 
-    <!-- Courier Partners -->
-    <!-- Courier Partners Section -->
-<section class="partners-section container text-center my-5">
-  <h3 class="mb-4 fw-bold">Our Courier Partners</h3>
+    <!-- Partners (use logos from static/logos/) -->
+    <div class="col-12 col-lg-6">
+      <section class="partners-section text-center">
+        <h3 class="mb-4 fw-bold">Our Courier Partners</h3>
 
-  <div class="row g-4 justify-content-center">
-    
-    <div class="col-6 col-md-3">
-      <div class="partner-card">
-        <img src="{{ url_for('static', filename='partners/dtdc.png') }}" class="partner-logo" alt="DTDC">
-        <p class="partner-name">DTDC</p>
-      </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-6 col-md-3">
+            <div class="partner-card">
+              <div class="logo-box">
+                <img src="{{ url_for('static', filename='logos/dtdc.png') }}" class="partner-logo" alt="DTDC">
+              </div>
+              <p class="partner-name">DTDC</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="partner-card">
+              <div class="logo-box">
+                <img src="{{ url_for('static', filename='logos/delhivery.png') }}" class="partner-logo" alt="Delhivery">
+              </div>
+              <p class="partner-name">Delhivery</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="partner-card">
+              <div class="logo-box">
+                <img src="{{ url_for('static', filename='logos/xpressbees.png') }}" class="partner-logo" alt="XpressBees">
+              </div>
+              <p class="partner-name">XpressBees</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="partner-card">
+              <div class="logo-box">
+                <img src="{{ url_for('static', filename='logos/ekart.png') }}" class="partner-logo" alt="Ekart Logistics">
+              </div>
+              <p class="partner-name">Ekart Logistics</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-
-    <div class="col-6 col-md-3">
-      <div class="partner-card">
-        <img src="{{ url_for('static', filename='partners/delhivery.png') }}" class="partner-logo" alt="Delhivery">
-        <p class="partner-name">Delhivery</p>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-3">
-      <div class="partner-card">
-        <img src="{{ url_for('static', filename='partners/xpressbees.png') }}" class="partner-logo" alt="XpressBees">
-        <p class="partner-name">XpressBees</p>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-3">
-      <div class="partner-card">
-        <img src="{{ url_for('static', filename='partners/ekart.png') }}" class="partner-logo" alt="Ekart Logistics">
-        <p class="partner-name">Ekart Logistics</p>
-      </div>
-    </div>
-
   </div>
-</section>
-
 
   <!-- FAQ -->
   <div class="row mt-4">
@@ -240,20 +250,20 @@
 
 </main>
 
-<!-- Floating WA Button -->
-<a class="floating-wa" href="https://wa.me/{{ config.get('OWNER_WHATSAPP','918005790802') }}" target="_blank">
+<!-- Floating WhatsApp -->
+<a class="floating-wa" href="https://wa.me/{{ config.get('OWNER_WHATSAPP','918005790802') }}" target="_blank" aria-label="WhatsApp">
   <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" width="50" alt="WhatsApp">
 </a>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <footer class="py-3 bg-white border-top">
   <div class="container d-flex flex-column flex-md-row justify-content-between small text-muted">
     <div>© {{ datetime.utcnow().year }} Ved Logistics</div>
-      <div>Contact: +{{ config.get('OWNER_WHATSAPP','918005790802') }} &nbsp;|&nbsp; Email: <a href="mailto:acc.vedlogistics@gmail.come">acc.vedlogistics@gmail.com</a></div>
+    <div>Contact: +{{ config.get('OWNER_WHATSAPP','918005790802') }} &nbsp;|&nbsp; Email: <a href="mailto:acc.vedlogistics@gmail.com">acc.vedlogistics@gmail.com</a></div>
   </div>
 </footer>
 
-<!-- WhatsApp Script -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -262,43 +272,78 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('bookingForm');
   const alerts = document.getElementById('alerts');
 
+  // input elements (safe references)
+  const elItem = document.getElementById('item_description');
+  const elSenderName = document.getElementById('sender_name');
+  const elSenderPhone = document.getElementById('sender_phone');
+  const elSenderPin = document.getElementById('sender_pincode');
+  const elReceiverPin = document.getElementById('receiver_pincode');
+
   function show(msg, type='success') {
     alerts.innerHTML = `<div class="alert alert-${type} small">${msg}</div>`;
   }
 
-  waBtn.addEventListener('click', async () => {
-    const data = {
-      item_description: item_description.value.trim(),
-      sender_name: sender_name.value.trim(),
-      sender_phone: sender_phone.value.trim(),
-      sender_pincode: sender_pincode.value.trim(),
-      receiver_pincode: receiver_pincode.value.trim()
-    };
+  if (waBtn) {
+    waBtn.addEventListener('click', async () => {
+      const data = {
+        item_description: elItem.value.trim(),
+        sender_name: elSenderName.value.trim(),
+        sender_phone: elSenderPhone.value.trim(),
+        sender_pincode: elSenderPin.value.trim(),
+        receiver_pincode: elReceiverPin.value.trim()
+      };
 
-    if (!data.item_description || !data.sender_name || !data.sender_phone ||
-        !data.sender_pincode || !data.receiver_pincode) {
-      return show("All fields are required.", "danger");
-    }
+      const missing = [];
+      if (!data.item_description) missing.push('Item description');
+      if (!data.sender_name) missing.push('Sender name');
+      if (!data.sender_phone) missing.push('Sender phone');
+      if (!data.sender_pincode) missing.push('Sender pincode');
+      if (!data.receiver_pincode) missing.push('Receiver pincode');
 
-    const popup = window.open("", "_blank");
+      if (missing.length) {
+        return show('Please provide: ' + missing.join(', '), 'danger');
+      }
 
-    const resp = await fetch("/api/submit-json", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data)
+      // open popup synchronously to avoid blockers
+      const popup = window.open('', '_blank');
+
+      try {
+        waBtn.disabled = true;
+        waBtn.textContent = 'Saving...';
+
+        const resp = await fetch('/api/submit-json', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        const js = await resp.json().catch(()=>({ok:false}));
+
+        if (!resp.ok || !js.ok) {
+          if (popup) try { popup.close(); } catch(e) {}
+          show((js && js.errors ? js.errors.join(' ') : 'Server error'), 'danger');
+          return;
+        }
+
+        // navigate popup to WhatsApp URL
+        if (popup) {
+          popup.location = js.wa_url;
+        } else {
+          window.open(js.wa_url, '_blank');
+        }
+
+        show('Saved — WhatsApp opened. Please tap Send in WhatsApp to notify Ved Logistics.', 'success');
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        if (popup) try { popup.close(); } catch(e) {}
+        show('Network error. Please try again.', 'danger');
+      } finally {
+        waBtn.disabled = false;
+        waBtn.textContent = 'Send via WhatsApp';
+      }
     });
-
-    const js = await resp.json();
-
-    if (!js.ok) {
-      popup.close();
-      return show("Error saving booking.", "danger");
-    }
-
-    popup.location = js.wa_url;
-    show("Saved! WhatsApp opened.", "success");
-    form.reset();
-  });
+  }
 });
 </script>
 
