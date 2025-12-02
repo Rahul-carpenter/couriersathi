@@ -38,9 +38,6 @@ body {
   font-weight: 700;
 }
 
-.testimonial{ background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 4px 12px rgba(2,6,23,0.03); }
-
-
 /* ----------------------------------------------------
    HERO SECTION
 ---------------------------------------------------- */
@@ -241,3 +238,16 @@ small, .small {
 /* Misc small helpers */
 .text-muted { color: #6b7280 !important; }
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+/* Fix faded text in testimonials */
+.testimonial p,
+.testimonial .muted,
+.testimonial .small {
+  color: #111 !important;      /* strong readable black */
+  opacity: 1 !important;
+  font-weight: 400 !important; /* normal weight */
+}
+
+/* Make testimonial author slightly lighter but still readable */
+.testimonial .muted {
+  color: #444 !important;
+}
