@@ -2,117 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Ved Logistics — Book Parcel Pickup Near You</title>
 
   <!-- SEO meta -->
-  <meta name="description" content="Ved Logistics — Quick parcel pickup booking across India. Fill a short form and we'll call to arrange pickup. No login required." />
-  <meta name="keywords" content="courier, parcel pickup, courier booking, send parcel, pickup parcel, courier near me, parcel delivery" />
+  <meta name="description" content="Ved Logistics — Fast parcel pickup and delivery across India. Simple form, WhatsApp confirmation, dedicated packaging team, trusted courier partners." />
+  <meta name="keywords" content="courier, parcel pickup, send parcel, courier near me, packaging service, DTDC, Delhivery, XpressBees, Ekart" />
   <link rel="canonical" href="{{ request.url_root }}"/>
 
-  <!-- Open Graph -->
+  <!-- OG -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Ved Logistics — Book Parcel Pickup" />
   <meta property="og:description" content="Quick parcel pickup booking. Enter item and pincodes and we'll contact you to arrange pickup." />
+  <meta property="og:image" content="{{ url_for('static', filename='logo.png') }}" />
   <meta property="og:url" content="{{ request.url_root }}" />
-  <meta property="og:image" content="{{ request.url_root }}static/logo.png" />
 
-  <!-- Structured data: LocalBusiness + FAQ for SEO -->
+  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "name": "Ved Logistics",
-        "url": "{{ request.url_root }}",
-        "telephone": "+{{ config.get('OWNER_WHATSAPP','') }}",
-        "description": "Quick parcel pickup booking service - enter item and your details to get a callback.",
-        "logo": "{{ request.url_root }}static/logo.png"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How do I book a pickup?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Fill the short form with item, sender details and pincodes. Use 'Send via WhatsApp' to open a prefilled chat and we will call you to confirm pickup."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is there any account required?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No account required — every booking is saved in our system and we will contact you by phone."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Which areas do you serve?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We serve pan-India courier pickups. Enter your pincodes to check availability and we will follow up."
-            }
-          }
-        ]
-      }
-    ]
+    "@type": "LocalBusiness",
+    "name": "Ved Logistics",
+    "url": "{{ request.url_root }}",
+    "telephone": "+{{ config.get('OWNER_WHATSAPP','') }}",
+    "description": "Pan-India courier pickup, packaging and delivery.",
+    "logo": "{{ url_for('static', filename='logo.png') }}"
   }
   </script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
-<body class="bg-page">
+<body class="bg-light">
 
-<!-- Header -->
-<header class="site-header shadow-sm">
+<!-- HEADER -->
+<header class="site-header shadow-sm bg-white">
   <div class="container py-3 d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-3">
-      <img src="{{ url_for('static', filename='logo.png') }}" alt="Ved Logistics - Your Delivery Partner" class="brand-logo-xl" />
+      <img src="{{ url_for('static', filename='logo.png') }}" class="brand-logo-xl" alt="Ved Logistics Logo">
       <div>
         <h1 class="site-title mb-0">Ved Logistics</h1>
         <p class="small text-muted mb-0">India’s Fastest Parcel Pickup Service</p>
       </div>
     </div>
 
-    <div class="contact-block text-end d-none d-md-block">
+    <div class="text-end d-none d-md-block">
       <div class="small text-muted">Call / WhatsApp</div>
-      <div class="contact-number">+{{ config.get('OWNER_WHATSAPP','918005790802') }}</div>
+      <div class="contact-number">+{{ config.get('OWNER_WHATSAPP','918290105891') }}</div>
     </div>
   </div>
 </header>
 
-<!-- Hero -->
-<section class="hero-banner text-center py-5 px-3 container">
-  <div class="hero-inner d-flex flex-column flex-md-row align-items-center gap-4">
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Ved Logistics Logo Large" class="hero-logo mb-2">
+<!-- HERO -->
+<section class="hero-banner text-center py-5 container">
+  <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="hero-logo" alt="Ved Logistics Large Logo">
     <div class="text-start">
-      <h2 class="hero-title"> ("Student express") Book Your Parcel Pickup in 60 Seconds</h2>
-      <p class="hero-subtitle">Fast • Reliable • ₹50 per kg • Doorstep Pickup Across India. No login — fill form → send WhatsApp → we call.</p>
-
+      <h2 class="hero-title">("Student Express") Book Your Parcel Pickup in 60 Seconds</h2>
+      <p class="hero-subtitle">Fast • Reliable • ₹50 per kg • Doorstep Pickup Across India</p>
       <div class="mt-3 d-flex gap-2 flex-wrap">
         <a href="#booking" class="btn btn-primary btn-lg">Book a Pickup</a>
-        <a href="#how-it-works" class="btn btn-outline-secondary btn-lg">How it works</a>
+        <a href="#how-it-works" class="btn btn-outline-secondary btn-lg">How it Works</a>
       </div>
     </div>
   </div>
 
-  <!-- Trust badges -->
   <div class="trust-badges d-flex gap-3 justify-content-center mt-4 flex-wrap">
-    <div class="badge-card"><strong>Fast Pickup</strong><div class="muted">Same-day in many areas</div></div>
-    <div class="badge-card"><strong>Pan-India</strong><div class="muted">Wide network coverage</div></div>
+    <div class="badge-card"><strong>Fast Pickup</strong><div class="muted">Same-day availability</div></div>
+    <div class="badge-card"><strong>Pan-India</strong><div class="muted">10,000+ pincodes</div></div>
     <div class="badge-card"><strong>Verified Agents</strong><div class="muted">Safe & reliable</div></div>
   </div>
 </section>
 
-<!-- Main content grid -->
+<!-- MAIN GRID -->
 <main class="container my-4">
+
   <div class="row gx-4 gy-4">
-    <!-- Booking form -->
+
+    <!-- BOOKING FORM -->
     <section id="booking" class="col-12 col-lg-6">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -121,33 +88,34 @@
           <form id="bookingForm" action="{{ url_for('submit') }}" method="post" novalidate>
             <div class="mb-3">
               <label class="form-label required">Item description</label>
-              <input id="item_description" name="item_description" class="form-control" placeholder="e.g. clothes, documents, electronics" required />
+              <input id="item_description" name="item_description" class="form-control" placeholder="e.g. clothes, documents" required />
             </div>
 
             <div class="row gx-2">
               <div class="col-6 mb-3">
                 <label class="form-label required">Sender name</label>
-                <input id="sender_name" name="sender_name" class="form-control" placeholder="Your name" required />
+                <input id="sender_name" name="sender_name" class="form-control" required />
               </div>
               <div class="col-6 mb-3">
                 <label class="form-label required">Sender phone</label>
-                <input id="sender_phone" name="sender_phone" class="form-control" placeholder="10 digit mobile" inputmode="tel" required />
+                <input id="sender_phone" name="sender_phone" class="form-control" inputmode="tel" required />
               </div>
             </div>
 
             <div class="row gx-2">
               <div class="col-6 mb-3">
                 <label class="form-label required">Sender pincode</label>
-                <input id="sender_pincode" name="sender_pincode" class="form-control" placeholder="e.g. 110001" inputmode="numeric" required />
+                <input id="sender_pincode" name="sender_pincode" class="form-control" inputmode="numeric" required />
               </div>
+
               <div class="col-6 mb-3">
                 <label class="form-label required">Receiver pincode</label>
-                <input id="receiver_pincode" name="receiver_pincode" class="form-control" placeholder="e.g. 400001" inputmode="numeric" required />
+                <input id="receiver_pincode" name="receiver_pincode" class="form-control" inputmode="numeric" required />
               </div>
             </div>
 
             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between align-items-center mt-2">
-              <div class="small text-muted">We save the request and open WhatsApp for you to notify us.</div>
+              <div class="small text-muted">We save your request & open WhatsApp for confirmation.</div>
               <div class="d-flex gap-2">
                 <button id="submitBtn" class="btn btn-outline-primary" type="submit">Submit</button>
                 <button id="waBtn" type="button" class="btn btn-primary">Send via WhatsApp</button>
@@ -160,21 +128,17 @@
       </div>
     </section>
 
-    <!-- Right column: testimonials + CTA -->
+    <!-- TESTIMONIALS + HOW IT WORKS -->
     <aside class="col-12 col-lg-6">
+
       <div class="card shadow-sm mb-3">
         <div class="card-body">
           <h4 class="h6">What customers say</h4>
-          <div class="testimonials mt-3">
-            <div class="testimonial">
-              <p class="small mb-1">"Fast pickup and great service — they called right after I booked."</p>
-              <div class="muted">— Ankit, Delhi</div>
-            </div>
-            <div class="testimonial mt-3">
-              <p class="small mb-1">"Saved my day, very professional team."</p>
-              <div class="muted">— Meera, Mumbai</div>
-            </div>
-          </div>
+          <p class="small mt-2 mb-1">"Fast pickup and great service — they called immediately."</p>
+          <div class="muted small">— Devendra Yadav, Saharsa</div>
+
+          <p class="small mt-3 mb-1">"Very professional and reliable."</p>
+          <div class="muted small">— Rishita Suthar, Hisar</div>
         </div>
       </div>
 
@@ -182,43 +146,94 @@
         <div class="card-body">
           <h4 class="h6">How it works</h4>
           <ol class="ps-3 mt-3 small">
-            <li>Fill the short booking form with item & pincodes.</li>
-            <li>Click <strong>Send via WhatsApp</strong> — it will save the request and open a prefilled message to our number.</li>
-            <li>We call you to confirm pickup details and schedule.</li>
+            <li>Fill the short booking form.</li>
+            <li>Click <strong>Send via WhatsApp</strong> — we save the request and open WhatsApp.</li>
+            <li>We call you & schedule the pickup.</li>
           </ol>
         </div>
       </div>
 
-      <div class="card shadow-sm mt-3">
-        <div class="card-body">
-          <h4 class="h6">Quick CTA</h4>
-          <p class="small text-muted mb-2">Prefer calling? Save our number and call or WhatsApp us anytime.</p>
-          <a href="tel:+{{ config.get('OWNER_WHATSAPP','918290105891') }}" class="btn btn-outline-success btn-sm">Call Now</a>
-          <a href="https://wa.me/{{ config.get('OWNER_WHATSAPP','918290105891') }}" target="_blank" class="btn btn-success btn-sm ms-2">WhatsApp</a>
-        </div>
-      </div>
     </aside>
   </div>
 
-  <!-- FAQ (good for SEO) -->
+  <!-- NEW SECTION: PACKAGING + COURIER PARTNERS -->
+  <div class="row mt-4 align-items-start">
+
+    <!-- Packaging video -->
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h4 class="h6">Dedicated Packaging Team</h4>
+          <p class="small text-muted">We carefully pack fragile and valuable items using certified materials.</p>
+
+          <video class="packaging-video" controls playsinline preload="metadata"
+                 poster="{{ url_for('static', filename='packaging-poster.jpg') }}">
+            <source src="{{ url_for('static', filename='packaging.mp4') }}" type="video/mp4">
+          </video>
+
+          <p class="small text-muted mt-2">Upload your video as <strong>static/packaging.mp4</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Courier Partners -->
+    <!-- Courier Partners Section -->
+<section class="partners-section container text-center my-5">
+  <h3 class="mb-4 fw-bold">Our Courier Partners</h3>
+
+  <div class="row g-4 justify-content-center">
+    
+    <div class="col-6 col-md-3">
+      <div class="partner-card">
+        <img src="{{ url_for('static', filename='partners/dtdc.png') }}" class="partner-logo" alt="DTDC">
+        <p class="partner-name">DTDC</p>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="partner-card">
+        <img src="{{ url_for('static', filename='partners/delhivery.png') }}" class="partner-logo" alt="Delhivery">
+        <p class="partner-name">Delhivery</p>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="partner-card">
+        <img src="{{ url_for('static', filename='partners/xpressbees.png') }}" class="partner-logo" alt="XpressBees">
+        <p class="partner-name">XpressBees</p>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="partner-card">
+        <img src="{{ url_for('static', filename='partners/ekart.png') }}" class="partner-logo" alt="Ekart Logistics">
+        <p class="partner-name">Ekart Logistics</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- FAQ -->
   <div class="row mt-4">
     <div class="col-12 col-lg-8">
       <div class="card shadow-sm">
         <div class="card-body">
           <h4 class="h6">Frequently Asked Questions</h4>
-          <div class="faq mt-3">
-            <details class="mb-2"><summary>How quickly will you call me?</summary>
-              <div class="mt-2 small muted">We usually call within 15–60 minutes during working hours. Response may vary by location.</div>
-            </details>
 
-            <details class="mb-2"><summary>Do you pick up same-day?</summary>
-              <div class="mt-2 small muted">Same-day pickup is available in many serviceable pincodes. Provide your pincodes and we'll confirm on call.</div>
-            </details>
+          <details class="mb-2"><summary>How fast do you call?</summary>
+            <p class="small mt-2">Usually within 15–60 minutes.</p>
+          </details>
 
-            <details class="mb-2"><summary>What are the charges?</summary>
-              <div class="mt-2 small muted">Charges vary by weight and distance. If the weight is more than or equal to 50 kg, the charge will be 50 rupees per kilogram.</div>
-            </details>
-          </div>
+          <details class="mb-2"><summary>Do you pick up same-day?</summary>
+            <p class="small mt-2">Yes, in most major cities.</p>
+          </details>
+
+          <details class="mb-2"><summary>What are the charges?</summary>
+            <p class="small mt-2">If the weight ≥ 50kg, ₹50 per kg.</p>
+          </details>
+
         </div>
       </div>
     </div>
@@ -226,91 +241,64 @@
 
 </main>
 
-<!-- Floating WhatsApp button (bottom-right) -->
-<a id="floatingWA" class="floating-wa" href="https://wa.me/{{ config.get('OWNER_WHATSAPP','918290105891') }}" target="_blank" aria-label="WhatsApp">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.149-.198.297-.768.967-.941 1.165-.173.198-.346.223-.644.074-1.758-.867-2.905-1.54-4.073-3.448-.309-.53.309-.493.89-1.644.099-.198.05-.371-.025-.52-.074-.149-.672-1.612-.923-2.21-.243-.58-.487-.5-.672-.51-.173-.007-.371-.01-.57-.01-.198 0-.52.074-.792.371-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.212 3.074.148.198 2.095 3.2 5.076 4.487 2.98 1.288 2.98.859 3.522.807.543-.05 1.758-.718 2.006-1.412.248-.694.248-1.288.173-1.412-.074-.124-.272-.198-.57-.347z" fill="#fff"/></svg>
+<!-- Floating WA Button -->
+<a class="floating-wa" href="https://wa.me/{{ config.get('OWNER_WHATSAPP','918290105891') }}" target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" width="50" alt="WhatsApp">
 </a>
 
-<footer class="site-footer py-3 bg-white border-top">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center small text-muted">
-    <div>© {{ datetime.utcnow().year }} Ved Logistics — Simple courier booking</div>
-    <div>Contact: +{{ config.get('OWNER_WHATSAPP','918290105891') }} &nbsp;|&nbsp; Email: <a href="mailto:info@Ved Logistics.example">acc.vedlogistics@gmail.com</a></div>
+<!-- FOOTER -->
+<footer class="py-3 bg-white border-top">
+  <div class="container d-flex flex-column flex-md-row justify-content-between small text-muted">
+    <div>© {{ datetime.utcnow().year }} Ved Logistics</div>
+      <div>Contact: +{{ config.get('OWNER_WHATSAPP','918005790802') }} &nbsp;|&nbsp; Email: <a href="mailto:acc.vedlogistics@gmail.come">acc.vedlogistics@gmail.com</a></div>
   </div>
 </footer>
 
-<!-- Bootstrap JS -->
+<!-- WhatsApp Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- popup-safe Send via WhatsApp script -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const waBtn = document.getElementById('waBtn');
   const form = document.getElementById('bookingForm');
   const alerts = document.getElementById('alerts');
 
-  function showAlert(msg, type='success') {
-    alerts.innerHTML = '<div class="alert alert-' + (type || 'success') + ' small mb-0">' + msg + '</div>';
+  function show(msg, type='success') {
+    alerts.innerHTML = `<div class="alert alert-${type} small">${msg}</div>`;
   }
 
-  waBtn.addEventListener('click', async function () {
+  waBtn.addEventListener('click', async () => {
     const data = {
-      item_description: document.getElementById('item_description').value.trim(),
-      sender_name: document.getElementById('sender_name').value.trim(),
-      sender_phone: document.getElementById('sender_phone').value.trim(),
-      sender_pincode: document.getElementById('sender_pincode').value.trim(),
-      receiver_pincode: document.getElementById('receiver_pincode').value.trim()
+      item_description: item_description.value.trim(),
+      sender_name: sender_name.value.trim(),
+      sender_phone: sender_phone.value.trim(),
+      sender_pincode: sender_pincode.value.trim(),
+      receiver_pincode: receiver_pincode.value.trim()
     };
 
-    const errs = [];
-    if (!data.item_description) errs.push('Item description required.');
-    if (!data.sender_name) errs.push('Sender name required.');
-    if (!data.sender_phone) errs.push('Sender phone required.');
-    if (!data.sender_pincode) errs.push('Sender pincode required.');
-    if (!data.receiver_pincode) errs.push('Receiver pincode required.');
-
-    if (errs.length) {
-      showAlert(errs.join(' '), 'danger');
-      return;
+    if (!data.item_description || !data.sender_name || !data.sender_phone ||
+        !data.sender_pincode || !data.receiver_pincode) {
+      return show("All fields are required.", "danger");
     }
 
-    // open blank popup synchronously to avoid popup blocking
-    const popup = window.open('', '_blank');
+    const popup = window.open("", "_blank");
 
-    waBtn.disabled = true;
-    waBtn.textContent = 'Saving...';
+    const resp = await fetch("/api/submit-json", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
 
-    try {
-      const resp = await fetch('/api/submit-json', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const js = await resp.json().catch(()=>({ok:false}));
+    const js = await resp.json();
 
-      if (!resp.ok || !js.ok) {
-        if (popup) try { popup.close(); } catch(e) {}
-        showAlert((js && js.errors ? js.errors.join(' ') : 'Server error'), 'danger');
-        waBtn.disabled = false;
-        waBtn.textContent = 'Send via WhatsApp';
-        return;
-      }
-
-      if (popup) {
-        popup.location = js.wa_url;
-      } else {
-        window.open(js.wa_url, '_blank');
-      }
-
-      showAlert('Saved — WhatsApp opened. Please tap Send in WhatsApp to notify Ved Logistics.', 'success');
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      if (popup) try { popup.close(); } catch(e) {}
-      showAlert('Network error. Please try again.', 'danger');
-    } finally {
-      waBtn.disabled = false;
-      waBtn.textContent = 'Send via WhatsApp';
+    if (!js.ok) {
+      popup.close();
+      return show("Error saving booking.", "danger");
     }
+
+    popup.location = js.wa_url;
+    show("Saved! WhatsApp opened.", "success");
+    form.reset();
   });
 });
 </script>
