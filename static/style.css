@@ -4,6 +4,9 @@
 body {
   background-color: #f8f9fa;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .required:after {
@@ -45,16 +48,19 @@ body {
 .hero-logo {
   height: 120px;
   width: auto;
+  object-fit: contain;
 }
 
 .hero-title {
   font-size: 1.8rem;
   font-weight: 700;
+  margin: 0;
 }
 
 .hero-subtitle {
   color: #555;
   font-size: 1rem;
+  margin: 0;
 }
 
 /* trust badges */
@@ -83,6 +89,11 @@ body {
   border-radius: 8px;
 }
 
+/* subtle consistent small text color */
+small, .small {
+  color: #6b7280;
+}
+
 /* ----------------------------------------------------
    PACKAGING VIDEO SECTION
 ---------------------------------------------------- */
@@ -91,8 +102,10 @@ body {
   height: auto;
   border-radius: 10px;
   background: #000;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   max-height: 380px;
+  display: block;
+  object-fit: cover;
 }
 
 @media (max-width: 576px) {
@@ -102,22 +115,27 @@ body {
 }
 
 /* ----------------------------------------------------
-   COURIER PARTNERS LOGOS
+   COURIER PARTNERS LOGOS — NATURAL SIZE (FINAL)
 ---------------------------------------------------- */
-/* ----------------------------------------------------
-   COURIER PARTNERS LOGOS — FINAL FIXED VERSION
----------------------------------------------------- */
-
+/* Container */
 .partners-section {
   margin-top: 40px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
+/* partner item wrapper */
 .partner-item {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
 }
 
-/* Remove card, borders, background, shadows */
+/* remove any card background if present */
 .partner-card {
   background: none !important;
   border: none !important;
@@ -125,25 +143,45 @@ body {
   padding: 0 !important;
 }
 
-/* Natural logo sizing */
+/* natural logo sizing — balanced and responsive */
 .partner-logo {
-  max-width: 160px;    /* Control overall size */
-  height: auto;
+  display: block;
+  width: auto;
+  height: 72px;        /* main height for logos */
+  max-width: 180px;    /* prevents extremely wide images */
   object-fit: contain;
-  margin-bottom: 8px;
+  margin: 0 auto;
 }
 
-/* Fix DTDC – slightly smaller in file, so upscale */
+/* Slightly enlarge DTDC to balance visual weight */
 .partner-logo.dtdc {
-  max-width: 190px;   /* Increase only DTDC */
+  height: 84px;
+  max-width: 220px;
 }
 
-/* Partner name */
+/* Partner name text */
 .partner-name {
   font-weight: 600;
   font-size: 1rem;
   margin-top: 4px;
   line-height: 1.2;
+  color: #111827;
+}
+
+/* Grid responsiveness helpers */
+.partners-row { gap: 1rem; }
+.partners-row .col-6,
+.partners-row .col-sm-4,
+.partners-row .col-md-3 {
+  display: flex;
+  align-items: stretch;
+}
+
+/* small devices */
+@media (max-width: 576px) {
+  .partner-logo { height: 56px; max-width: 140px; }
+  .partner-logo.dtdc { height: 66px; max-width: 160px; }
+  .partner-name { font-size: 0.95rem; }
 }
 
 /* ----------------------------------------------------
@@ -159,12 +197,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.18);
   z-index: 1000;
 }
 
 .floating-wa img {
   width: 38px;
+  height: auto;
 }
 
 /* ----------------------------------------------------
@@ -195,3 +234,7 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* Misc small helpers */
+.text-muted { color: #6b7280 !important; }
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }

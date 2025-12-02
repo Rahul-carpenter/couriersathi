@@ -180,41 +180,42 @@
 
     <!-- Partners (use logos from static/logos/) -->
     <div class="col-12 col-lg-6">
-      <section class="partners-section container text-center my-5">
-        <h3 class="mb-4 fw-bold">Our Courier Partners</h3>
+      <!-- Partners — final clean layout -->
+      <section class="partners-section container my-5">
+        <h3 class="text-center mb-4 fw-bold">Our Courier Partners</h3>
 
-        <div class="row g-4 justify-content-center">
-
-          <div class="col-6 col-md-3 partner-item">
-            <div class="partner-card">
-              <img src="{{ url_for('static', filename='logos/dtdc.png') }}" class="partner-logo dtdc" alt="DTDC">
-              <p class="partner-name">DTDC</p>
+        <div class="partners-row row justify-content-center gx-4 gy-4 align-items-stretch">
+          <!-- DTDC (slightly larger to balance visual weight) -->
+          <div class="col-6 col-sm-4 col-md-3 d-flex align-items-stretch">
+            <div class="partner-item w-100 text-center">
+              <img src="{{ url_for('static', filename='logos/dtdc.png') }}" alt="DTDC" class="partner-logo dtdc">
+              <div class="partner-name">DTDC</div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3 partner-item">
-            <div class="partner-card">
-              <img src="{{ url_for('static', filename='logos/delhivery.png') }}" class="partner-logo" alt="Delhivery">
-              <p class="partner-name">Delhivery</p>
+          <div class="col-6 col-sm-4 col-md-3 d-flex align-items-stretch">
+            <div class="partner-item w-100 text-center">
+              <img src="{{ url_for('static', filename='logos/delhivery.png') }}" alt="Delhivery" class="partner-logo">
+              <div class="partner-name">Delhivery</div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3 partner-item">
-            <div class="partner-card">
-              <img src="{{ url_for('static', filename='logos/xpressbees.png') }}" class="partner-logo" alt="XpressBees">
-              <p class="partner-name">XpressBees</p>
+          <div class="col-6 col-sm-4 col-md-3 d-flex align-items-stretch">
+            <div class="partner-item w-100 text-center">
+              <img src="{{ url_for('static', filename='logos/xpressbees.png') }}" alt="XpressBees" class="partner-logo">
+              <div class="partner-name">XpressBees</div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3 partner-item">
-            <div class="partner-card">
-              <img src="{{ url_for('static', filename='logos/ekart.png') }}" class="partner-logo" alt="Ekart Logistics">
-              <p class="partner-name">Ekart Logistics</p>
+          <div class="col-6 col-sm-4 col-md-3 d-flex align-items-stretch">
+            <div class="partner-item w-100 text-center">
+              <img src="{{ url_for('static', filename='logos/ekart.png') }}" alt="Ekart" class="partner-logo">
+              <div class="partner-name">Ekart Logistics</div>
             </div>
           </div>
-
         </div>
       </section>
+
 
 
     </div>
