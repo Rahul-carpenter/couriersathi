@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-  <title>CourierSathi — Book Parcel Pickup Near You</title>
+  <title>Ved Logistics — Book Parcel Pickup Near You</title>
 
   <!-- SEO meta -->
-  <meta name="description" content="CourierSathi — Quick parcel pickup booking across India. Fill a short form and we'll call to arrange pickup. No login required." />
+  <meta name="description" content="Ved Logistics — Quick parcel pickup booking across India. Fill a short form and we'll call to arrange pickup. No login required." />
   <meta name="keywords" content="courier, parcel pickup, courier booking, send parcel, pickup parcel, courier near me, parcel delivery" />
   <link rel="canonical" href="{{ request.url_root }}"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="CourierSathi — Book Parcel Pickup" />
+  <meta property="og:title" content="Ved Logistics — Book Parcel Pickup" />
   <meta property="og:description" content="Quick parcel pickup booking. Enter item and pincodes and we'll contact you to arrange pickup." />
   <meta property="og:url" content="{{ request.url_root }}" />
   <meta property="og:image" content="{{ request.url_root }}static/logo.png" />
@@ -24,7 +24,7 @@
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "name": "CourierSathi",
+        "name": "Ved Logistics",
         "url": "{{ request.url_root }}",
         "telephone": "+{{ config.get('OWNER_WHATSAPP','') }}",
         "description": "Quick parcel pickup booking service - enter item and your details to get a callback.",
@@ -72,9 +72,9 @@
 <header class="site-header shadow-sm">
   <div class="container py-3 d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-3">
-      <img src="{{ url_for('static', filename='logo.png') }}" alt="CourierSathi - Your Delivery Partner" class="brand-logo-xl" />
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Ved Logistics - Your Delivery Partner" class="brand-logo-xl" />
       <div>
-        <h1 class="site-title mb-0">CourierSathi</h1>
+        <h1 class="site-title mb-0">Ved Logistics</h1>
         <p class="small text-muted mb-0">India’s Fastest Parcel Pickup Service</p>
       </div>
     </div>
@@ -89,10 +89,10 @@
 <!-- Hero -->
 <section class="hero-banner text-center py-5 px-3 container">
   <div class="hero-inner d-flex flex-column flex-md-row align-items-center gap-4">
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="CourierSathi Logo Large" class="hero-logo mb-2">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Ved Logistics Logo Large" class="hero-logo mb-2">
     <div class="text-start">
-      <h2 class="hero-title">Book Your Parcel Pickup in 60 Seconds</h2>
-      <p class="hero-subtitle">Fast • Reliable • Doorstep Pickup Across India. No login — fill form → send WhatsApp → we call.</p>
+      <h2 class="hero-title"> ("Student express") Book Your Parcel Pickup in 60 Seconds</h2>
+      <p class="hero-subtitle">Fast • Reliable • ₹50 per kg • Doorstep Pickup Across India. No login — fill form → send WhatsApp → we call.</p>
 
       <div class="mt-3 d-flex gap-2 flex-wrap">
         <a href="#booking" class="btn btn-primary btn-lg">Book a Pickup</a>
@@ -216,7 +216,7 @@
             </details>
 
             <details class="mb-2"><summary>What are the charges?</summary>
-              <div class="mt-2 small muted">Charges vary by weight and distance. Our agent will share a quote on call after details.</div>
+              <div class="mt-2 small muted">Charges vary by weight and distance. If the weight is more than or equal to 50 kg, the charge will be 50 rupees per kilogram.</div>
             </details>
           </div>
         </div>
@@ -233,8 +233,8 @@
 
 <footer class="site-footer py-3 bg-white border-top">
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center small text-muted">
-    <div>© {{ datetime.utcnow().year }} CourierSathi — Simple courier booking</div>
-    <div>Contact: +{{ config.get('OWNER_WHATSAPP','918290105891') }} &nbsp;|&nbsp; Email: <a href="mailto:info@couriersathi.example">info@couriersathi.example</a></div>
+    <div>© {{ datetime.utcnow().year }} Ved Logistics — Simple courier booking</div>
+    <div>Contact: +{{ config.get('OWNER_WHATSAPP','918290105891') }} &nbsp;|&nbsp; Email: <a href="mailto:info@Ved Logistics.example">acc.vedlogistics@gmail.com</a></div>
   </div>
 </footer>
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open(js.wa_url, '_blank');
       }
 
-      showAlert('Saved — WhatsApp opened. Please tap Send in WhatsApp to notify CourierSathi.', 'success');
+      showAlert('Saved — WhatsApp opened. Please tap Send in WhatsApp to notify Ved Logistics.', 'success');
       form.reset();
     } catch (err) {
       console.error(err);
