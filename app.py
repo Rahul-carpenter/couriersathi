@@ -58,8 +58,8 @@ except (ValueError, TypeError):
 OWNER_WHATSAPP = os.environ.get("OWNER_WHATSAPP", "918290105891")
 
 # Admin credentials (basic auth)
-ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
-ADMIN_PASS = os.environ.get("ADMIN_PASS", "adminpass")
+ADMIN_USER = os.environ.get("ADMIN_USER")
+ADMIN_PASS = os.environ.get("ADMIN_PASS")
 
 auth = HTTPBasicAuth()
 users = {ADMIN_USER: generate_password_hash(ADMIN_PASS)}
