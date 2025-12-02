@@ -104,34 +104,39 @@ body {
 /* ----------------------------------------------------
    COURIER PARTNERS LOGOS
 ---------------------------------------------------- */
-/* Courier partner logos */
-/* Courier partner logos */
+/* ----------------------------------------------------
+   COURIER PARTNERS LOGOS — FINAL FIXED VERSION
+---------------------------------------------------- */
+
 .partners-section {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .partner-card {
   background: #fff;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 18px 10px;
+  border-radius: 14px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   transition: transform .15s ease;
-  border: 1px solid #eee;
 }
 
-/* Fixed-size visual box */
+.partner-card:hover {
+  transform: translateY(-3px);
+}
+
+/* FIXED SAME-SIZE LOGO BOX */
 .logo-box {
-  width: 140px;        /* fixed width */
-  height: 80px;        /* fixed height */
+  width: 120px;       /* same width for all */
+  height: 60px;       /* same height for all */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;    /* ensures logo NEVER spills outside */
-  margin: 0 auto 8px;
-  background: #fff;
+  overflow: hidden;   /* prevents overflow */
+  margin: 0 auto 10px;
 }
 
-/* Logo stays contained */
+/* FIXED LOGO BEHAVIOR */
 .partner-logo {
   max-width: 100%;
   max-height: 100%;
@@ -139,8 +144,11 @@ body {
   display: block;
 }
 
-.partner-name { font-weight:600; font-size:0.95rem; margin:0; }
-
+.partner-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
 
 /* ----------------------------------------------------
    FLOATING WHATSAPP BUTTON
