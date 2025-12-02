@@ -4,9 +4,7 @@
 body {
   background-color: #f8f9fa;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
-  color: #111827;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: #111827; /* dark readable text */
 }
 
 .required:after {
@@ -15,8 +13,9 @@ body {
   font-weight: bold;
 }
 
-.muted {
-  color: #6c757d !important;
+.muted, .text-muted, small, .small {
+  color: #6b7280 !important; /* readable grey */
+  opacity: 1 !important;
 }
 
 /* ----------------------------------------------------
@@ -48,19 +47,16 @@ body {
 .hero-logo {
   height: 120px;
   width: auto;
-  object-fit: contain;
 }
 
 .hero-title {
   font-size: 1.8rem;
   font-weight: 700;
-  margin: 0;
 }
 
 .hero-subtitle {
-  color: #555;
+  color: #374151;
   font-size: 1rem;
-  margin: 0;
 }
 
 /* trust badges */
@@ -79,109 +75,79 @@ body {
 ---------------------------------------------------- */
 .card {
   border-radius: 12px;
+  background: #fff;
 }
 
 .card-body {
-  padding: 20px 24px;
+  padding: 20px 26px;
 }
 
 .form-control {
   border-radius: 8px;
 }
 
-/* subtle consistent small text color */
-small, .small {
-  color: #6b7280;
+/* Make card titles normal (not bold heavy) */
+.card h4, .card h3, .card h6 {
+  font-weight: 600;
 }
 
 /* ----------------------------------------------------
-   PACKAGING VIDEO SECTION
+   PACKAGING VIDEO SECTION — FIXED (BIG + RESPONSIVE)
 ---------------------------------------------------- */
 .packaging-video {
   width: 100%;
   height: auto;
   border-radius: 10px;
   background: #000;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  max-height: 380px;
   display: block;
-  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+
+  max-height: 520px;       /* much bigger video */
+  object-fit: contain;     /* no cropping */
 }
 
 @media (max-width: 576px) {
   .packaging-video {
-    max-height: 220px;
+    max-height: 320px;     /* bigger on mobile too */
   }
 }
 
 /* ----------------------------------------------------
-   COURIER PARTNERS LOGOS — NATURAL SIZE (FINAL)
+   COURIER PARTNERS LOGOS — EQUAL SIZE CLEAN LOOK
 ---------------------------------------------------- */
-/* Container */
 .partners-section {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 50px;
   text-align: center;
 }
 
-/* partner item wrapper */
 .partner-item {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 6px 8px;
 }
 
-/* remove any card background if present */
 .partner-card {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 0 !important;
 }
 
-/* natural logo sizing — balanced and responsive */
+/* Balanced size for all logos */
 .partner-logo {
+  max-width: 150px;
+  height: auto;
   display: block;
-  width: auto;
-  height: 72px;        /* main height for logos */
-  max-width: 180px;    /* prevents extremely wide images */
+  margin: 0 auto 10px;
   object-fit: contain;
-  margin: 0 auto;
 }
 
-/* Slightly enlarge DTDC to balance visual weight */
+/* DTDC (larger file → reduce slightly) */
 .partner-logo.dtdc {
-  height: 84px;
-  max-width: 220px;
+  max-width: 130px;
 }
 
-/* Partner name text */
 .partner-name {
-  font-weight: 600;
   font-size: 1rem;
+  font-weight: 600;
   margin-top: 4px;
-  line-height: 1.2;
-  color: #111827;
-}
-
-/* Grid responsiveness helpers */
-.partners-row { gap: 1rem; }
-.partners-row .col-6,
-.partners-row .col-sm-4,
-.partners-row .col-md-3 {
-  display: flex;
-  align-items: stretch;
-}
-
-/* small devices */
-@media (max-width: 576px) {
-  .partner-logo { height: 56px; max-width: 140px; }
-  .partner-logo.dtdc { height: 66px; max-width: 160px; }
-  .partner-name { font-size: 0.95rem; }
 }
 
 /* ----------------------------------------------------
@@ -194,16 +160,12 @@ small, .small {
   background: #25D366;
   padding: 12px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
   z-index: 1000;
 }
 
 .floating-wa img {
-  width: 38px;
-  height: auto;
+  width: 40px;
 }
 
 /* ----------------------------------------------------
@@ -234,7 +196,3 @@ small, .small {
     font-size: 0.9rem;
   }
 }
-
-/* Misc small helpers */
-.text-muted { color: #6b7280 !important; }
-.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
