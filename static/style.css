@@ -109,45 +109,41 @@ body {
 ---------------------------------------------------- */
 
 .partners-section {
-  margin-top: 50px;
-}
-
-.partner-card {
-  background: #fff;
-  padding: 18px 10px;
-  border-radius: 14px;
+  margin-top: 40px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  transition: transform .15s ease;
 }
 
-.partner-card:hover {
-  transform: translateY(-3px);
+.partner-item {
+  text-align: center;
 }
 
-/* FIXED SAME-SIZE LOGO BOX */
-.logo-box {
-  width: 120px;       /* same width for all */
-  height: 60px;       /* same height for all */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;   /* prevents overflow */
-  margin: 0 auto 10px;
+/* Remove card, borders, background, shadows */
+.partner-card {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-/* FIXED LOGO BEHAVIOR */
+/* Natural logo sizing */
 .partner-logo {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 160px;    /* Control overall size */
+  height: auto;
   object-fit: contain;
-  display: block;
+  margin-bottom: 8px;
 }
 
+/* Fix DTDC – slightly smaller in file, so upscale */
+.partner-logo.dtdc {
+  max-width: 190px;   /* Increase only DTDC */
+}
+
+/* Partner name */
 .partner-name {
   font-weight: 600;
   font-size: 1rem;
-  margin: 0;
+  margin-top: 4px;
+  line-height: 1.2;
 }
 
 /* ----------------------------------------------------
