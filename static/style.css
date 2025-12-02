@@ -38,6 +38,9 @@ body {
   font-weight: 700;
 }
 
+.testimonial{ background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 4px 12px rgba(2,6,23,0.03); }
+
+
 /* ----------------------------------------------------
    HERO SECTION
 ---------------------------------------------------- */
